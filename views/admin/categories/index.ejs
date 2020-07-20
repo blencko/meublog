@@ -1,0 +1,66 @@
+<%- include ('../../partials/header.ejs') %>
+<%- include ('../../partials/navbar.ejs') %>
+
+<div class="container container-fluid">
+    <hr>
+    <h2>Categorias</h2>
+    <hr>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titulo</th>
+                <th>Slug</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>1</th>
+                <th>Desenvolvimento web</th>
+                <th>Desenvolvimento-web</th>
+                <th></th>
+            </tr>
+
+            <% categories.forEach(category=>{%>
+                <tr>
+                    <th><%=category.id%></th>
+                    <th><%=category.titulo%></th>
+                    <th><%=category.slug%></th>
+
+                    <th>
+                        <a href="/admin/categories/editor/<%= category.id%>" class="btn btn-warning">Editar</a>
+
+                        <form method="POST" action="/categories/delete" style="display: inline;" onsubmit="deletar(event,this)">
+                            <input type="hidden" name='id' value="<%= category.id %>">
+                            <button class="btn btn-danger">Deletar</button>
+                        </form>    
+                    </th>
+                </tr>
+            <% })%>
+
+
+        </tbody>
+        <a href="/admin/categories/new"> <button class="btn btn-primary mt-2 mb-2"> Cadastrar nova categoria</button></a>
+        
+
+    </table>
+
+
+
+</div>
+<script>
+    function deletar(event, form){
+        event.preventDefault();
+        var decisao = confirm("Esta certo de deletar?");
+        if(decisao){
+            console.log("Deletado");
+            form.submit();
+        }
+    }
+
+</script>
+
+
+<%- include ('../../partials/footer.ejs') %>

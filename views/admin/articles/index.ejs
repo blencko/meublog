@@ -1,0 +1,63 @@
+<%- include ('../../partials/header.ejs') %>
+<%- include ('../../partials/navbar.ejs') %>
+
+<div class="container container-fluid mt-3">
+    <hr>
+    <h2>Noticias</h2>
+    <hr>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titulo</th>
+                <th>Slug</th>
+                <th>Categoria</th>
+                <th>Descrição</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+           <% arigos.forEach(arigos=>{%>
+                <tr>
+                    <th><%=arigos.id%></th>
+                    <th><%=arigos.titulo%></th>
+                    <th><%=arigos.slug%></th>
+                    <th><%=arigos.descricao%></th>
+                    <th><%=arigos.categoria.titulo%></th>
+
+                    <th>
+                        <a href="/admin/articles/edit/<%= arigos.id%>" class="btn btn-warning">Editar</a>
+
+                        <form method="POST" action="/article/delete" style="display: inline;" onsubmit="deletar(event,this)">
+                            <input type="hidden" name='id' value="<%= arigos.id %>">
+                            <button class="btn btn-danger">Deletar</button>
+                        </form>    
+                    </th>
+                </tr>
+            <% })%>
+
+
+        </tbody>
+        <a href="/admin/articles/new"> <button class="btn btn-primary mt-2 mb-2"> Cadastrar nova noticia</button></a>
+        
+
+    </table>
+
+
+
+</div>
+<script>
+    function deletar(event, form){
+        event.preventDefault();
+        var decisao = confirm("Esta certo de deletar?");
+        if(decisao){
+            console.log("Deletado");
+            form.submit();
+        }
+    }
+
+</script>
+
+
+<%- include ('../../partials/footer.ejs') %>

@@ -1,0 +1,71 @@
+<%- include ('../../partials/header.ejs') %>
+<%- include ('../../partials/navbar.ejs') %>
+
+<div class="container container-fluid mt-4">
+    <div class="card ">
+        <div class="card-header">
+            <h1>Nova noticia</h1>
+        </div>
+        <div class="card-body">
+            <form action="/articles/update" method="POST">
+                <input type="hidden" id="id" name="id" value="<%=artigo.id%>">
+
+                <input class="form-control" type="text" name="titulo" id="titulo" placeholder="Defina o titulo do artigo" value="<%= artigo.titulo%>">
+                <br>
+                
+                <input class="form-control" type="text" name="autor" id="autor" placeholder="Defina o autor" value="<%= artigo.autor%>">
+                <br>
+
+                <input class="form-control" type="text" name="descricao" id="descricao" placeholder="Defina a sua descrição" value="<%= artigo.descricao%>">
+                <br>
+
+                <select class="form-control"  name="categoria" id="categoria" label="Selecione sua categoria" >
+
+                    <%categorias.forEach((categorias)=>{%>
+
+                        <option value="<%=categorias.id%>"><%= 
+                categorias.titulo%></option>
+
+                    <%})%>
+
+                </select>
+                <br>
+
+                <textarea  class="form-control" name="texto" id="texto" placeholder="Seu texto aqui" value="<%= artigo.texto%>"></textarea>
+
+                <br>
+                <button class="btn btn-success">Confirmar</button>
+                <a href="/admin/articles" class="btn btn-primary mt-2 mb-2" style="display: inline;"> Voltar</a>
+
+                          
+            </form>
+    
+
+        </div>
+        
+    </div>
+</div>
+
+<div id="conteudo" style="display: none;">
+    <%- artigo.body%>
+
+</div>
+
+
+
+
+<%- include ('../../partials/footer.ejs') %>
+
+<script src="/tinymce/tinymce.min.js"></script>
+<script>
+    tinymce.init({
+        language:'pt_BR',
+        selector:"#texto",
+        plugins:[
+            'advlist autolink link image lists print preview hr searchreplace wordcount fullscreen insertdatetime media save table past emoticons'
+        ],
+        init_instance_callback:()=>{
+            tinymce.get("texto").setContent($('#conteudo').html())
+        }
+    })
+</script>

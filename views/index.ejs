@@ -1,0 +1,46 @@
+<%- include ('partials/header.ejs') %>
+<%- include ('partials/navbarhome.ejs') %>
+
+<body>
+    <div class="container container-fluid mt-3">
+        <div class="col-md-12">
+            
+            <%artigos.forEach(artigos=>{%>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                      <h2> <%= artigos.titulo%></h2>
+                    </div>
+
+                    <div class="card-body">
+                        <p><%= artigos.descricao%></p>
+                        
+                    </div>
+
+                    <div class="card-footer">
+                        <p class="d-inline"><%= artigos.autor%></p>
+                        <a href="/<%=artigos.slug%>" class="btn btn-primary p-2 d-inline ml-5"> Visualizar</a>
+                    </div>
+
+
+                </div>
+
+
+
+        <%})%>
+                <hr>
+        <div class="row">
+            <div class="col col-12">
+              <a style="float: right;" class="" href="/articles/page/2">Proximo</a>
+          
+            </div>
+        </div>
+
+
+        </div>
+    </div>
+
+</body>
+
+
+<%- include ('partials/footer.ejs') %>
